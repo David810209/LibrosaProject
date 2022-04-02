@@ -44,28 +44,20 @@ for i in range(len(y2)):
     wavecount.append(i)
 print(count)
 
-# 偵測節拍
-tempo, beat_frames = librosa.beat.beat_track(y=y, sr=sr)
-tempos, beat_frames2 = librosa.beat.beat_track(y=y2, sr=sr)
-# 將 frames 轉為實際時間
-times = librosa.frames_to_time(beat_frames, sr=sr)
-times2 = librosa.frames_to_time(beat_frames2, sr=sr)
-
-#計算節拍差距
+#計算節拍誤差
 for i in range(len(times)):
   if abs(times[i] - times2[i]) > 0.8:
     timecount.append(i)
-    count += 1
-score -= count
+    timescore -= 1
 
-#輸出分析結果
-print(score)
+#計算總分
+score = timescore + wavescore
+
+print('分析結果：\n音準分數：',wavescore,'\n節拍分數：',timescore,'\n總分：',score)
 print(wavecount)
 print(timecount)
 '''
 分析結果：
 分數
 落差特別大的段落
-評語(if else)
-........
 '''
